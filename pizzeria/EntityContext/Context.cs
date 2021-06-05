@@ -18,7 +18,6 @@ namespace pizzeria.EntityContext
         public Context ()
         {
             Database.EnsureCreated();
-            
         }
 
 
@@ -38,7 +37,6 @@ namespace pizzeria.EntityContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
                 optionsBuilder.UseSqlServer(@"Data Source=WIN-JT2C2OT04D4\SQLEXPRESS;Initial Catalog=pizzaria3;User ID=admin;Password=serverSQLtest!!!123!");
-               
         }
     }
 

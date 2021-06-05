@@ -15,11 +15,7 @@ namespace pizzeria
         public static handler handler = new handler();
         static void Main(string[] args)
         {
-
-            
             Pizzeria();
-
-
         }
 
         public static void Pizzeria() {
@@ -44,12 +40,14 @@ namespace pizzeria
                     break;
                 case 3:
                     Console.Clear();
+                    handler.GetAllOrder();
                     Console.WriteLine("Введите номер заказа");
                     int numberOrder = Convert.ToInt32(Console.ReadLine());
                     handler.DeleteOrder(numberOrder);
                     break;
                 case 4:
                     Console.Clear();
+                    handler.GetAllOrder();
                     Console.WriteLine("Введите номер заказа");
                     numberOrder = Convert.ToInt32(Console.ReadLine());
                     handler.GetInfoOrder(numberOrder);
@@ -57,6 +55,7 @@ namespace pizzeria
 
                 case 5:
                     Console.Clear();
+                    handler.GetAllOrder();
                     Console.WriteLine("Введите номер заказа");
                      numberOrder = Convert.ToInt32(Console.ReadLine());
                     handler.EditStatus(numberOrder);

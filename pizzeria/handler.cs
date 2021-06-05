@@ -62,8 +62,6 @@ namespace pizzeria
                             catch (Exception ex) { Console.WriteLine(ex.Message); }
                             order.orderHistories.Add(History);
                         }
-                        
-
                     }
                     catch (Exception ex)
                     {
@@ -88,7 +86,7 @@ namespace pizzeria
             context.SaveChanges();
 
             Console.WriteLine("Заказ сделан ");
-            Console.WriteLine("Состав заказа: ");
+            Console.WriteLine("детали заказа: ");
             GetInfoOrder(order._orderNumber);
         }
         public void NewProducts()
@@ -164,7 +162,10 @@ namespace pizzeria
                     Console.WriteLine($"Название: {product.pizza._name}");
                     Console.WriteLine($"Картинка: {product.pizza._img}");
                     Console.WriteLine("\nИнгрееденты: ");
-                    var include = context.pizza.Where(p => p == product.pizza).Include(p => p._ingredeents).First();
+                    var include = context.pizza
+                        .Where(p => p == product.pizza)
+                        .Include(p => p._ingredeents)
+                        .First();
                     foreach (var t in include._ingredeents) Console.WriteLine(t._name);
                     Console.WriteLine($"Количество : {product._countProduct}");
                     Console.WriteLine($"\nЦена за одну пиццу: {product.pizza._price} \n ___________________________");

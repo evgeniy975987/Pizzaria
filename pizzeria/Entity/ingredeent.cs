@@ -12,5 +12,7 @@ namespace pizzeria
         public int _ingredeentId { get; set; }
         public string _name { get; set; }
         public ICollection<pizza> pizzas { get; set; } = new List<pizza>();
+
+
     }
 }

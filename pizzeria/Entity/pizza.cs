@@ -14,10 +14,9 @@ namespace pizzeria.data
         public string _name { get; set; }
         public string _img { get; set; }
         public ICollection<ingredeent> _ingredeents { get; set; } = new List<ingredeent>();
+
         
-
-
-
-       
     }
+
+    
 }
