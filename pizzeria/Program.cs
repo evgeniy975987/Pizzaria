@@ -60,6 +60,7 @@ namespace pizzeria
                     Console.WriteLine("Введите номер заказа");
                      numberOrder = Convert.ToInt32(Console.ReadLine());
                     handler.EditStatus(numberOrder);
+
                     break;
                 case 6:
                     Console.Clear();

@@ -13,7 +13,7 @@ namespace pizzeria.data
         public string _middleName { get; set; }
         public string _lastName { get; set; }
         public string _addres { get; set; }
-        public ICollection<Order> _order { get; set; } = new List<Order>();
+        public ICollection<Order> order { get; set; } = new List<Order>();
 
 
 

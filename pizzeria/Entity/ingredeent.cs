@@ -1,5 +1,9 @@
 ﻿using pizzeria.data;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace pizzeria
 {
@@ -7,6 +11,6 @@ namespace pizzeria
     {
         public int _ingredeentId { get; set; }
         public string _name { get; set; }
-        public ICollection<pizza> _pizzas { get; set; } = new List<pizza>();
+        public ICollection<pizza> pizzas { get; set; } = new List<pizza>();
     }
 }
