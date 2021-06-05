@@ -76,7 +76,7 @@ namespace pizzeria
             Console.Clear();
             order._isDone = false;
             order._timeWait = order._timeOrder.AddMinutes(30);
-            Console.WriteLine("Состав заказа: ");
+            
             if (context.orders.Count() > 0) order._orderNumber = context.orders.OrderBy(p => p._orderNumber).Last<Order>()._orderNumber + 1;
             else order._orderNumber = 1;
 
@@ -87,7 +87,8 @@ namespace pizzeria
             context.orders.Add(order);
             context.SaveChanges();
 
-            Console.WriteLine("Заказ сделан: ");
+            Console.WriteLine("Заказ сделан ");
+            Console.WriteLine("Состав заказа: ");
             GetInfoOrder(order._orderNumber);
         }
         public void NewProducts()
@@ -125,7 +126,7 @@ namespace pizzeria
         {
             foreach (var product in context.pizza.Include(p => p._ingredeents).ToList())
             {
-                Console.WriteLine($"товар под номером  {product._pizzaID}, название  пиццы: {product._name}, цена: {product._price}. {product._img}");
+                Console.WriteLine($"товар под номером  {product._pizzaID}, \nназвание  пиццы: {product._name}, \nцена: {product._price}. \n{product._img}");
 
                 foreach (var n in product._ingredeents) Console.WriteLine(n._name);
                 Console.WriteLine("///////////////////////////////////////");
