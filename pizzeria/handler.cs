@@ -18,10 +18,10 @@ namespace pizzeria
         
         public void DeleteOrder(int numberOrder) {
             var findOrder = context.orders
-                .Where(p => p.orderNumber == numberOrder)
+                .Where(p => p._orderNumber == numberOrder)
                 .Include(p => p._person)
                 .Include(p => p._products)
-                .Include(p => p.orderHistories)
+                .Include(p => p._orderHistories)
                 .First();
             context.orders.Remove(findOrder);
             context.SaveChanges();
@@ -49,11 +49,11 @@ namespace pizzeria
                         order._products.Add(pizza);
                         Console.WriteLine("Сколько штук? ");
                         OrderHistory History = new OrderHistory();
-                        History.order = order;
-                        History.pizza = pizza;
-                        try { History.countProduct = Convert.ToInt32(Console.ReadLine()); }
+                        History._order = order;
+                        History._pizza = pizza;
+                        try { History._countProduct = Convert.ToInt32(Console.ReadLine()); }
                         catch (Exception ex) { Console.WriteLine(ex.Message); }
-                        order.orderHistories.Add(History);
+                        order._orderHistories.Add(History);
                         
 
                     }
@@ -69,18 +69,18 @@ namespace pizzeria
             order._isDone = false;
             order._timeWait = order._timeOrder.AddMinutes(30);
             Console.WriteLine("Состав заказа: ");
-            if (context.orders.Count() > 0) order.orderNumber = context.orders.OrderBy(p => p.orderNumber).Last<Order>().orderNumber + 1;
-            else order.orderNumber = 1;
+            if (context.orders.Count() > 0) order._orderNumber = context.orders.OrderBy(p => p._orderNumber).Last<Order>()._orderNumber + 1;
+            else order._orderNumber = 1;
             
             
-            context.people.Include(p => p.order);
-            person.order.Add(order);
+            context.people.Include(p => p._order);
+            person._order.Add(order);
             context.people.Add(person);
             context.orders.Add(order);
             context.SaveChanges();
 
             Console.WriteLine("Заказ сделан: ");
-            GetInfoOrder(order.orderNumber);
+            GetInfoOrder(order._orderNumber);
         }
         public  void NewProducts()
         {
@@ -100,11 +100,11 @@ namespace pizzeria
                 for (int j = 0; j < 5; j++)
                 {
                     ingredeent ingredeent = new ingredeent();
-                    ingredeent.name = $"Сдесь должно быть название ингереента {j}";
+                    ingredeent._name = $"Сдесь должно быть название ингереента {j}";
                     pizza._ingredeents.Add(ingredeent);
                     context.ingredeents.Add(ingredeent);
                     context.SaveChanges();
-                    Console.WriteLine("Добавлен ингедеент:" + ingredeent.name);
+                    Console.WriteLine("Добавлен ингедеент:" + ingredeent._name);
                 }
 
                 context.pizza.Add(pizza);
@@ -119,13 +119,17 @@ namespace pizzeria
             {
                 Console.WriteLine($"товар под номером  {product._pizzaID}, название  пиццы: {product._name}, цена: {product._price}. {product._img}");
                 
-                foreach (var n in product._ingredeents) Console.WriteLine(n.name);
+                foreach (var n in product._ingredeents) Console.WriteLine(n._name);
                 Console.WriteLine("///////////////////////////////////////");
             }
         }
 
         public void GetAllOrder() {
-            foreach (var t in context.orders.ToList()) GetInfoOrder(t.orderNumber);
+            foreach (var t in context.orders.ToList()) {
+                GetInfoOrder(t._orderNumber);
+                Console.WriteLine("___________________________________________________________");
+            }
+            
         }
 
         public void GetInfoOrder(int numberOrder) {
@@ -133,8 +137,8 @@ namespace pizzeria
             {
                 
                 var findOrder = context.orders
-                    .Where(p => p.orderNumber == numberOrder)
-                    .Include(p => p.orderHistories)
+                    .Where(p => p._orderNumber == numberOrder)
+                    .Include(p => p._orderHistories)
                     .Include(p => p._products)
                     .First();
                 int fullPrice = 0;
@@ -142,18 +146,18 @@ namespace pizzeria
 
                 Console.WriteLine($"время заказа: {findOrder._timeOrder} ");
 
-                foreach (var product in findOrder.orderHistories)
+                foreach (var product in findOrder._orderHistories)
                 {
-                    Console.WriteLine($"Название: {product.pizza._name}");
-                    Console.WriteLine($"Картинка: {product.pizza._img}");
+                    Console.WriteLine($"Название: {product._pizza._name}");
+                    Console.WriteLine($"Картинка: {product._pizza._img}");
                     Console.WriteLine("\nИнгрееденты: ");
-                    var include = context.pizza.Where(p => p == product.pizza).Include(p => p._ingredeents).First();
-                    foreach (var t in include._ingredeents) Console.WriteLine(t.name);
-                    Console.WriteLine($"Количество : {product.countProduct}");
-                    Console.WriteLine($"\nЦена за одну пиццу: {product.pizza._price} \n ___________________________");
-                    foreach (var n in findOrder.orderHistories) fullPrice += n.pizza._price * n.countProduct;
+                    var include = context.pizza.Where(p => p == product._pizza).Include(p => p._ingredeents).First();
+                    foreach (var t in include._ingredeents) Console.WriteLine(t._name);
+                    Console.WriteLine($"Количество : {product._countProduct}");
+                    Console.WriteLine($"\nЦена за одну пиццу: {product._pizza._price} \n ___________________________");
+                    foreach (var n in findOrder._orderHistories) fullPrice += n._pizza._price * n._countProduct;
                 }
-                Console.WriteLine($"Полная цена:  {fullPrice}, номер заказа {findOrder.orderNumber}");
+                Console.WriteLine($"Полная цена:  {fullPrice}, номер заказа {findOrder._orderNumber}");
                 if (findOrder._isDone) Console.WriteLine("Заказ готов");
                 else Console.WriteLine($"Заказ не готов, ");
 
@@ -164,7 +168,7 @@ namespace pizzeria
         }
 
         public void EditStatus(int numberOrder) {
-            context.orders.Where(p => p.orderNumber == numberOrder).FirstOrDefault()._isDone = true;
+            context.orders.Where(p => p._orderNumber == numberOrder).FirstOrDefault()._isDone = true;
             
         }
     }

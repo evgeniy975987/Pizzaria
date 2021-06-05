@@ -9,27 +9,27 @@ namespace pizzeria.data
     class Person
     {
         public int _personID { get; set; }
-        public string name { get; set; }
-        public string middleName { get; set; }
-        public string lastName { get; set; }
-        public string addres { get; set; }
-        public ICollection<Order> order { get; set; } = new List<Order>();
+        public string _name { get; set; }
+        public string _middleName { get; set; }
+        public string _lastName { get; set; }
+        public string _addres { get; set; }
+        public ICollection<Order> _order { get; set; } = new List<Order>();
 
 
 
         public void NewPerson()
         {
             Console.WriteLine("ВВедите имя: ");
-            name = Console.ReadLine();
+            _name = Console.ReadLine();
 
             Console.WriteLine("ВВедите фамимилию: ");
-            middleName = Console.ReadLine();
+            _middleName = Console.ReadLine();
 
             Console.WriteLine("ВВедите отчество: ");
-            lastName = Console.ReadLine();
+            _lastName = Console.ReadLine();
 
             Console.WriteLine("ВВедите аадрес");
-            addres = Console.ReadLine();
+            _addres = Console.ReadLine();
 
 
         }

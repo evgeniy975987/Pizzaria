@@ -22,12 +22,12 @@ namespace pizzeria.EntityContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<pizza>().HasKey(p => p._pizzaID);
-            modelBuilder.Entity<pizza>().HasMany(p => p._ingredeents).WithMany(p => p.pizzas);
-            modelBuilder.Entity<ingredeent>().HasKey(p => p.ingredeentId);
-            modelBuilder.Entity<ingredeent>().HasMany(p => p.pizzas).WithMany(p => p._ingredeents);
+            modelBuilder.Entity<pizza>().HasMany(p => p._ingredeents).WithMany(p => p._pizzas);
+            modelBuilder.Entity<ingredeent>().HasKey(p => p._ingredeentId);
+            modelBuilder.Entity<ingredeent>().HasMany(p => p._pizzas).WithMany(p => p._ingredeents);
             modelBuilder.Entity<Order>().HasKey(p => p._orderID);
             modelBuilder.Entity<OrderHistory>().HasKey(p => p._orderHistoryID);
-            modelBuilder.Entity<OrderHistory>().HasOne(p => p.order).WithMany(P => P.orderHistories);
+            modelBuilder.Entity<OrderHistory>().HasOne(p => p._order).WithMany(P => P._orderHistories);
             modelBuilder.Entity<Person>().HasKey(p => p._personID);
         }
 
