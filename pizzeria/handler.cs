@@ -37,7 +37,7 @@ namespace pizzeria
 
             while (true)
             {
-                Console.WriteLine("что заказать? для выхода введите exit");
+                Console.WriteLine("что заказать (для заказа введите номер товара) ? для выхода введите exit");
                 GetAllProducts();
                 if (Console.ReadLine() == "exit") break;
                 else
